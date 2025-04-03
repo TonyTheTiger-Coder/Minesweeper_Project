@@ -8,7 +8,7 @@ int main()
     window.create(sf :: VideoMode(), "Minesweeper", sf :: State :: Fullscreen);
     window.setFramerateLimit(60);
     std::cout << sf:: VideoMode :: getDesktopMode().size.x << ", " << sf:: VideoMode :: getDesktopMode().size.y;
-    sf :: Font font("times new roman.ttf");
+    sf :: Font font("../../src/times new roman.ttf");
 
 
 
