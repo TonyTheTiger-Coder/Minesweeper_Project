@@ -7,6 +7,11 @@ int main()
     sf :: RenderWindow window;
     window.create(sf :: VideoMode(), "Minesweeper", sf :: State :: Fullscreen);
     window.setFramerateLimit(60);
+    std::cout << sf:: VideoMode :: getDesktopMode().size.x << ", " << sf:: VideoMode :: getDesktopMode().size.y;
+    sf :: Font font("times new roman.ttf");
+
+
+
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -23,7 +28,13 @@ int main()
             }
 
         }
-        window.clear(sf :: Color :: Black);
+        window.clear(sf :: Color :: White);
+        sf :: Text text(font);
+        text.setString("MINESWEEPER");
+        text.setCharacterSize(75);
+        text.setFillColor(sf :: Color :: Black);
+        text.setPosition({960.f, 100.f});
+        window.draw(text);
 
         window.display();
     }
