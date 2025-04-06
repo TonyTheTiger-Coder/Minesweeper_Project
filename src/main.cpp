@@ -4,14 +4,16 @@
 
 int main()
 {
+    int screenWidth;
+    int screenHeight;
     sf :: RenderWindow window;
+    screenWidth = sf :: VideoMode :: getDesktopMode().size.x;
+    screenHeight = sf :: VideoMode :: getDesktopMode().size.y;
     window.create(sf :: VideoMode(), "Minesweeper", sf :: State :: Fullscreen);
+    sf::Vector2u size = window.getSize();
+    auto [width, height] = size;
+    std::cout << width << " " << height << std::endl;
     window.setFramerateLimit(60);
-    std::cout << sf:: VideoMode :: getDesktopMode().size.x << ", " << sf:: VideoMode :: getDesktopMode().size.y;
-    sf :: Font font("../../src/times new roman.ttf");
-
-
-
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -28,13 +30,10 @@ int main()
             }
 
         }
-        window.clear(sf :: Color :: White);
-        sf :: Text text(font);
-        text.setString("MINESWEEPER");
-        text.setCharacterSize(75);
-        text.setFillColor(sf :: Color :: Black);
-        text.setPosition({960.f, 100.f});
-        window.draw(text);
+        window.clear(sf :: Color :: Black);
+        sf :: Texture texture("Minesweeper_title_screen.png", false, sf :: IntRect({0,0},{1920,1080}));
+        sf::Sprite sprite(texture);
+        window.draw(sprite);
 
         window.display();
     }
