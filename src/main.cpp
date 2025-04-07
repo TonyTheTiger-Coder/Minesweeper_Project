@@ -6,110 +6,306 @@ int main()
 {
     int screenWidth;
     int screenHeight;
-    sf :: RenderWindow window;
-    screenWidth = sf :: VideoMode :: getDesktopMode().size.x;
-    screenHeight = sf :: VideoMode :: getDesktopMode().size.y;
-    window.create(sf :: VideoMode(), "Minesweeper", sf :: State :: Fullscreen);
-    sf::Vector2u size = window.getSize();
+    sf :: RenderWindow title;
+    sf :: RenderWindow difficulty;
+    sf :: RenderWindow easy;
+    sf :: RenderWindow medium;
+    sf :: RenderWindow hard;
+    sf :: RenderWindow demolition;
+    title.create(sf :: VideoMode(), "MINESWEEPER", sf :: State :: Fullscreen);
+    sf::Vector2u size = title.getSize();
     auto [width, height] = size;
     std::cout << width << " " << height << std::endl;
-    window.setFramerateLimit(60);
+    title.setFramerateLimit(60);
     // run the program as long as the window is open
-    while (window.isOpen())
+    while (title.isOpen())
     {
-        bool mouse_hover_play,mouse_hover_demolition,mouse_hover_exit;
+        bool mouseHoverPlay,mouseHoverDemolition,mouseHoverExit;
 
         // check all the window's events that were triggered since the last iteration of the loop
-        while (const std :: optional event = window.pollEvent())
+        while (const std :: optional event = title.pollEvent())
         {
 
             // "close requested" event: we close the window
             if (event->is<sf :: Event :: Closed>())
-                window.close();
+                title.close();
             else if (const auto* keyPressed = event->getIf<sf :: Event :: KeyPressed>())
             {
                 if (keyPressed->scancode == sf :: Keyboard :: Scancode :: Escape)
-                    window.close();
+                    title.close();
             }
             else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) )
             {
-                sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+                sf::Vector2i localPosition = sf::Mouse::getPosition(title);
                 std::cout << localPosition.x << " " << localPosition.y << std::endl;
                 if ((localPosition.x >= 753 && localPosition.x <=1177) && (localPosition.y >= 953 && localPosition.y <=1044))
-                    window.close();
+                    title.close();
+                else if ((localPosition.x >= 752 && localPosition.x <= 1178) && (localPosition.y >= 817 && localPosition.y <= 910))
+                {
+                    title.close();
+                    demolition.create(sf :: VideoMode(), "MINESWEEPER", sf :: State :: Fullscreen);
+                    demolition.setFramerateLimit(60);
+                }
+                else if ((localPosition.x >= 751 && localPosition.x <=1175) && (localPosition.y >= 680 && localPosition.y <=780))
+                {
+                    title.close();
+                    difficulty.create(sf :: VideoMode(), "MINESWEEPER", sf :: State :: Fullscreen);
+                    difficulty.setFramerateLimit(60);
+
+                }
             }
             else if (const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>())
             {
-                sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+                sf::Vector2i localPosition = sf::Mouse::getPosition(title);
                 if ((localPosition.x >=751 && localPosition.x <=1175) && (localPosition.y >= 680 && localPosition.y <=780))
                 {
-                    window.clear(sf :: Color :: Black);
+                    title.clear(sf :: Color :: Black);
                     sf :: Texture texture("../../src/Minesweeper_title_screen_new_play.png", false, sf :: IntRect({0,0},{1920,1080}));
                     sf::Sprite sprite(texture);
-                    window.draw(sprite);
-                    window.display();
-                    mouse_hover_play=true;
+                    title.draw(sprite);
+                    title.display();
+                    mouseHoverPlay=true;
                 }
                 else if ((localPosition.x >= 752 && localPosition.x <= 1178) && (localPosition.y >= 817 && localPosition.y <= 910))
                 {
-                    window.clear(sf :: Color :: Black);
+                    title.clear(sf :: Color :: Black);
                     sf :: Texture texture("../../src/Minesweeper_title_screen_new_demolition.png", false, sf :: IntRect({0,0},{1920,1080}));
                     sf::Sprite sprite(texture);
-                    window.draw(sprite);
-                    window.display();
-                    mouse_hover_demolition=true;
+                    title.draw(sprite);
+                    title.display();
+                    mouseHoverDemolition=true;
                 }
                 else if ((localPosition.x >= 753 && localPosition.x <= 1177) && (localPosition.y >= 953 && localPosition.y <= 1044))
                 {
-                    window.clear(sf :: Color :: Black);
+                    title.clear(sf :: Color :: Black);
                     sf :: Texture texture("../../src/Minesweeper_title_screen_new_exit.png", false, sf :: IntRect({0,0},{1920,1080}));
                     sf::Sprite sprite(texture);
-                    window.draw(sprite);
-                    window.display();
-                    mouse_hover_exit=true;
+                    title.draw(sprite);
+                    title.display();
+                    mouseHoverExit=true;
                 }
                 else
                 {
-                    window.clear(sf :: Color :: Black);
+                    title.clear(sf :: Color :: Black);
                     sf :: Texture texture("../../src/Minesweeper_title_screen_new.png", false, sf :: IntRect({0,0},{1920,1080}));
                     sf::Sprite sprite(texture);
-                    window.draw(sprite);
-                    window.display();
-                    mouse_hover_play=false,mouse_hover_demolition=false,mouse_hover_exit=false;
+                    title.draw(sprite);
+                    title.display();
+                    mouseHoverPlay=false,mouseHoverDemolition=false,mouseHoverExit=false;
                 }
             }
         }
 
-        if (mouse_hover_play==true && mouse_hover_demolition==false && mouse_hover_exit==false)
+        if (mouseHoverPlay==true && mouseHoverDemolition==false && mouseHoverExit==false)
         {
-            window.clear(sf :: Color :: Black);
+            title.clear(sf :: Color :: Black);
             sf :: Texture texture("../../src/Minesweeper_title_screen_new_play.png", false, sf :: IntRect({0,0},{1920,1080}));
             sf::Sprite sprite(texture);
-            window.draw(sprite);
-            window.display();
+            title.draw(sprite);
+            title.display();
         }
-        if (mouse_hover_demolition==true && mouse_hover_exit==false && mouse_hover_play==false)
+        else if (mouseHoverDemolition==true && mouseHoverExit==false && mouseHoverPlay==false)
         {
-            window.clear(sf :: Color :: Black);
+            title.clear(sf :: Color :: Black);
             sf :: Texture texture("../../src/Minesweeper_title_screen_new_demolition.png", false, sf :: IntRect({0,0},{1920,1080}));
             sf::Sprite sprite(texture);
-            window.draw(sprite);
-            window.display();
+            title.draw(sprite);
+            title.display();
         }
-        if (mouse_hover_exit==true && mouse_hover_play==false && mouse_hover_demolition==false)
+        else if (mouseHoverExit==true && mouseHoverPlay==false && mouseHoverDemolition==false)
         {
-            window.clear(sf :: Color :: Black);
+            title.clear(sf :: Color :: Black);
             sf :: Texture texture("../../src/Minesweeper_title_screen_new_exit.png", false, sf :: IntRect({0,0},{1920,1080}));
             sf::Sprite sprite(texture);
-            window.draw(sprite);
-            window.display();
+            title.draw(sprite);
+            title.display();
         }
-        if (mouse_hover_play==false && mouse_hover_demolition==false && mouse_hover_exit==false)
+        else if (mouseHoverPlay==false && mouseHoverDemolition==false && mouseHoverExit==false)
         {
-            window.clear(sf :: Color :: Black);
+            title.clear(sf :: Color :: Black);
             sf :: Texture texture("../../src/Minesweeper_title_screen_new.png", false, sf :: IntRect({0,0},{1920,1080}));sf::Sprite sprite(texture);
-            window.draw(sprite);
-            window.display();
+            title.draw(sprite);
+            title.display();
         }
+    }
+    while (difficulty.isOpen())
+    {
+        bool mouseHoverEasy,mouseHoverMedium,mouseHoverHard;
+        while (const std :: optional event = difficulty.pollEvent())
+        {
+            if (event->is<sf :: Event :: Closed>())
+                difficulty.close();
+            else if (const auto* keyPressed = event->getIf<sf :: Event :: KeyPressed>())
+            {
+                if (keyPressed->scancode == sf :: Keyboard :: Scancode :: Escape)
+                    difficulty.close();
+            }
+            else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) )
+            {
+                sf::Vector2i localPosition = sf::Mouse::getPosition(difficulty);
+                if ((localPosition.x >=746 && localPosition.x <=1170) && (localPosition.y >= 189 && localPosition.y <=319))
+                {
+                    difficulty.close();
+                    easy.create(sf :: VideoMode(), "MINESWEEPER", sf :: State :: Fullscreen);
+                    easy.setFramerateLimit(60);
+                }
+                else if ((localPosition.x >= 747 && localPosition.x <= 1174) && (localPosition.y >= 481 && localPosition.y <= 605))
+                {
+                    difficulty.close();
+                    medium.create(sf :: VideoMode(), "MINESWEEPER", sf :: State :: Fullscreen);
+                    medium.setFramerateLimit(60);
+                }
+                else if ((localPosition.x >= 750 && localPosition.x <= 1169) && (localPosition.y >= 743 && localPosition.y <= 873))
+                {
+                    difficulty.close();
+                    hard.create(sf :: VideoMode(), "MINESWEEPER", sf :: State :: Fullscreen);
+                    hard.setFramerateLimit(60);
+                }
+                std::cout << localPosition.x << " " << localPosition.y << std::endl;
+            }
+            else if (const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>())
+            {
+                sf::Vector2i localPosition = sf::Mouse::getPosition(difficulty);
+                if ((localPosition.x >=746 && localPosition.x <=1170) && (localPosition.y >= 189 && localPosition.y <=319))
+                {
+                    difficulty.clear(sf :: Color :: Black);
+                    sf :: Texture texture("../../src/Minesweeper_difficulty_select_easy.png", false, sf :: IntRect({0,0},{1920,1080}));
+                    sf::Sprite sprite(texture);
+                    difficulty.draw(sprite);
+                    difficulty.display();
+                    mouseHoverEasy=true;
+                }
+                else if ((localPosition.x >= 747 && localPosition.x <= 1174) && (localPosition.y >= 481 && localPosition.y <= 605))
+                {
+                    difficulty.clear(sf :: Color :: Black);
+                    sf :: Texture texture("../../src/Minesweeper_difficulty_select_medium.png", false, sf :: IntRect({0,0},{1920,1080}));
+                    sf::Sprite sprite(texture);
+                    difficulty.draw(sprite);
+                    difficulty.display();
+                    mouseHoverMedium=true;
+                }
+                else if ((localPosition.x >= 750 && localPosition.x <= 1169) && (localPosition.y >= 743 && localPosition.y <= 873))
+                {
+                    difficulty.clear(sf :: Color :: Black);
+                    sf :: Texture texture("../../src/Minesweeper_difficulty_select_hard.png", false, sf :: IntRect({0,0},{1920,1080}));
+                    sf::Sprite sprite(texture);
+                    difficulty.draw(sprite);
+                    difficulty.display();
+                    mouseHoverHard=true;
+                }
+                else
+                {
+                    difficulty.clear(sf :: Color :: Black);
+                    sf :: Texture texture("../../src/Minesweeper_difficulty_select.png", false, sf :: IntRect({0,0},{1920,1080}));
+                    sf::Sprite sprite(texture);
+                    difficulty.draw(sprite);
+                    difficulty.display();
+                    mouseHoverEasy=false,mouseHoverMedium=false,mouseHoverHard=false;
+                }
+            }
+        }
+        if (mouseHoverEasy==true && mouseHoverMedium==false && mouseHoverHard==false)
+        {
+            difficulty.clear(sf :: Color :: Black);
+            sf :: Texture texture("../../src/Minesweeper_difficulty_select_easy.png", false, sf :: IntRect({0,0},{1920,1080}));
+            sf::Sprite sprite(texture);
+            difficulty.draw(sprite);
+            difficulty.display();
+        }
+        else if (mouseHoverMedium==true && mouseHoverHard==false && mouseHoverEasy==false)
+        {
+            difficulty.clear(sf :: Color :: Black);
+            sf :: Texture texture("../../src/Minesweeper_difficulty_select_medium.png", false, sf :: IntRect({0,0},{1920,1080}));
+            sf::Sprite sprite(texture);
+            difficulty.draw(sprite);
+            difficulty.display();
+        }
+        else if (mouseHoverHard==true && mouseHoverEasy==false && mouseHoverMedium==false)
+        {
+            difficulty.clear(sf :: Color :: Black);
+            sf :: Texture texture("../../src/Minesweeper_difficulty_select_hard.png", false, sf :: IntRect({0,0},{1920,1080}));
+            sf::Sprite sprite(texture);
+            difficulty.draw(sprite);
+            difficulty.display();
+        }
+        else if (mouseHoverEasy==false && mouseHoverMedium==false && mouseHoverHard==false)
+        {
+            difficulty.clear(sf :: Color :: Black);
+            sf :: Texture texture("../../src/Minesweeper_difficulty_select.png", false, sf :: IntRect({0,0},{1920,1080}));sf::Sprite sprite(texture);
+            difficulty.draw(sprite);
+            difficulty.display();
+        }
+    }
+    while (demolition.isOpen())
+    {
+        while (const std :: optional event = demolition.pollEvent())
+        {
+            if (event->is<sf :: Event :: Closed>())
+                demolition.close();
+            else if (const auto* keyPressed = event->getIf<sf :: Event :: KeyPressed>())
+            {
+                if (keyPressed->scancode == sf :: Keyboard :: Scancode :: Escape)
+                    demolition.close();
+            }
+        }
+        demolition.clear(sf :: Color :: Black);
+        sf :: Texture texture("../../src/Minesweeper_medium.png", false, sf :: IntRect({0,0},{1920,1080}));
+        sf::Sprite sprite(texture);
+        demolition.draw(sprite);
+        demolition.display();
+    }
+    while (easy.isOpen())
+    {
+        while (const std :: optional event = easy.pollEvent())
+        {
+            if (event->is<sf :: Event :: Closed>())
+                easy.close();
+            else if (const auto* keyPressed = event->getIf<sf :: Event :: KeyPressed>())
+            {
+                if (keyPressed->scancode == sf :: Keyboard :: Scancode :: Escape)
+                    easy.close();
+            }
+        }
+        easy.clear(sf :: Color :: Black);
+        sf :: Texture texture("../../src/Minesweeper_easy.png", false, sf :: IntRect({0,0},{1920,1080}));
+        sf::Sprite sprite(texture);
+        easy.draw(sprite);
+        easy.display();
+    }
+    while (medium.isOpen())
+    {
+        while (const std :: optional event = medium.pollEvent())
+        {
+            if (event->is<sf :: Event :: Closed>())
+                medium.close();
+            else if (const auto* keyPressed = event->getIf<sf :: Event :: KeyPressed>())
+            {
+                if (keyPressed->scancode == sf :: Keyboard :: Scancode :: Escape)
+                    medium.close();
+            }
+        }
+        medium.clear(sf :: Color :: Black);
+        sf :: Texture texture("../../src/Minesweeper_medium.png", false, sf :: IntRect({0,0},{1920,1080}));
+        sf::Sprite sprite(texture);
+        medium.draw(sprite);
+        medium.display();
+    }
+    while (hard.isOpen())
+    {
+        while (const std :: optional event = hard.pollEvent())
+        {
+            if (event->is<sf :: Event :: Closed>())
+                hard.close();
+            else if (const auto* keyPressed = event->getIf<sf :: Event :: KeyPressed>())
+            {
+                if (keyPressed->scancode == sf :: Keyboard :: Scancode :: Escape)
+                    hard.close();
+            }
+        }
+        hard.clear(sf :: Color :: Black);
+        sf :: Texture texture("../../src/Minesweeper_hard.png", false, sf :: IntRect({0,0},{1920,1080}));
+        sf::Sprite sprite(texture);
+        hard.draw(sprite);
+        hard.display();
     }
 }
