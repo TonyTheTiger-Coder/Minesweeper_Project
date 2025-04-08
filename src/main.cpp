@@ -5,5 +5,5 @@
 
 int main()
 {
-    Windows();
+    gameWindows();
 }

@@ -4,8 +4,8 @@
 
 #ifndef WINDOWS_H
 #define WINDOWS_H
-void Windows();
-void Windows()
+void gameWindows();
+void gameWindows()
 {
     sf :: RenderWindow title;
     sf :: RenderWindow difficulty;
