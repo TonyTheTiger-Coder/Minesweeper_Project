@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <random>
+#include <string>
 #include "Easy.h"
 #include "Medium.h"
 #include "Hard.h"
