@@ -263,6 +263,9 @@ void gameWindows()
         sf :: Texture texture("../../src/Minesweeper_medium.png", false, sf :: IntRect({0,0},{1920,1080}));
         sf::Sprite sprite(texture);
         demolition.draw(sprite);
+        sf :: Texture Bomb("../../src/bomb01.png", false, sf :: IntRect({0,0},{50,50}));
+        sf::Sprite bomb(Bomb);
+        demolition.draw(bomb);
         demolition.display();
     }
     while (easy.isOpen())
