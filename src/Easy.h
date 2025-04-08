@@ -1,12 +1,25 @@
 //
 // Created by willw on 04/07/2025.
 //
-
 #ifndef EASY_H
 #define EASY_H
 void easy();
 void easy()
 {
+    int rows;
+    int columns;
+    bool grid[10][10]={false};
+    int mines=0;
+    while (mines<10)
+    {
+        rows=rand()%10;
+        columns=rand()%10;
+        if (!grid[rows][columns])
+        {
+            grid[rows][columns]=true;
+            mines++;
+        }
+    }
     sf :: RenderWindow easy;
     easy.create(sf :: VideoMode(), "MINESWEEPER", sf :: State :: Fullscreen);
     easy.setFramerateLimit(60);
@@ -37,8 +50,21 @@ void easy()
         square.setTextureRect(sf::IntRect({0,0},{500,500}));
         square.setPosition({712.f, 289.f});
         easy.draw(square);
+
+        for (rows=0; rows<10; rows++)
+        {
+            for (columns=0; columns<10; columns++)
+            {
+                if (grid[rows][columns] == true)
+                {
+                    sf :: Texture Mine("../../src/mineEasy.png", false, sf :: IntRect({0,0},{50,50}));
+                    sf::Sprite mine(Mine);
+                    mine.setPosition({712.f+(50*rows),289.f+(50*columns)});
+                    easy.draw(mine);
+                }
+            }
+        }
         easy.display();
     }
 }
-
 #endif //EASY.h
