@@ -3,7 +3,7 @@
 //
 #ifndef HARD_H
 #define HARD_H
-void hard();
+//floodfill algorithm
 void hard()
 {
     int countMinesHard(bool grid[30][30], int rows, int columns);

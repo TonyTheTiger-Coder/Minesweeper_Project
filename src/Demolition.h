@@ -3,7 +3,7 @@
 //
 #ifndef DEMOLITION_H
 #define DEMOLITION_H
-void demolition();
+//floodfill algorithm
 void demolition()
 {
     int countMinesDemolition(bool grid[20][20], int rows, int columns);

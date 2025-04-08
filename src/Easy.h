@@ -3,7 +3,7 @@
 //
 #ifndef EASY_H
 #define EASY_H
-void easy();
+//floodfill algorithm
 void easy()
 {
     int countMinesEasy(bool grid[10][10], int rows, int columns);

@@ -4,8 +4,7 @@
 #ifndef MEDIUM_H
 #define MEDIUM_H
 #include "Easy.h"
-
-void medium();
+//floodfill algorithm
 void medium()
 {
     int countMinesMedium(bool grid[20][20], int rows, int columns);
