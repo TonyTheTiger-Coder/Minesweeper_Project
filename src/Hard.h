@@ -3,8 +3,9 @@
 //
 #ifndef HARD_H
 #define HARD_H
+void difficulty();
 //floodfill algorithm
-void hard()
+inline void Hard()
 {
     int countMinesHard(bool grid[30][30], int rows, int columns);
     int rows;
@@ -39,18 +40,22 @@ void hard()
             {
                 sf::Vector2i localPosition = sf::Mouse::getPosition(hard);
                 std::cout << localPosition.x << " " << localPosition.y << std::endl;
+                if (sf::Mouse::getPosition(hard).x >=17 && sf::Mouse::getPosition(hard).x <=189 && sf::Mouse::getPosition(hard).y >=14 && sf::Mouse::getPosition(hard).y <=89)
+                {
+                    hard.close();
+                    difficulty();
+                }
+                else if (sf::Mouse::getPosition(hard).x >=1731 && sf::Mouse::getPosition(hard).x <=1901 && sf::Mouse::getPosition(hard).y >=14 && sf::Mouse::getPosition(hard).y <=89)
+                {
+                    hard.close();
+                    Hard();
+                }
             }
         }
         hard.clear(sf :: Color :: Black);
         sf :: Texture texture("../../src/Minesweeper_hard.png", false, sf :: IntRect({0,0},{1920,1080}));
         sf::Sprite sprite(texture);
         hard.draw(sprite);
-        sf :: Texture Square("../../src/emptySquareHard.png", false, sf :: IntRect({0,0},{30,30}));
-        Square.setRepeated(true);
-        sf::Sprite square(Square);
-        square.setTextureRect(sf::IntRect({0,0},{900,900}));
-        square.setPosition({511.f,93.f});
-        hard.draw(square);
         for (rows=0; rows<30; rows++)
         {
             for (columns=0; columns<30; columns++)
@@ -142,6 +147,40 @@ void hard()
                     hard.draw(mine);
                 }
             }
+        }
+        sf :: Texture Square("../../src/emptySquareHard.png", false, sf :: IntRect({0,0},{30,30}));
+        Square.setRepeated(true);
+        sf::Sprite square(Square);
+        square.setTextureRect(sf::IntRect({0,0},{900,900}));
+        square.setPosition({511.f,93.f});
+        hard.draw(square);
+        if (sf::Mouse::getPosition(hard).x >=17 && sf::Mouse::getPosition(hard).x <=189 && sf::Mouse::getPosition(hard).y >=14 && sf::Mouse::getPosition(hard).y <=89)
+        {
+            sf :: Texture HighlightedBackButton("../../src/backButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedBackButton(HighlightedBackButton);
+            highlightedBackButton.setPosition({17.f, 14.f});
+            hard.draw(highlightedBackButton);
+        }
+        else
+        {
+            sf :: Texture BackButton("../../src/backButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite backButton(BackButton);
+            backButton.setPosition({17.f, 14.f});
+            hard.draw(backButton);
+        }
+        if (sf::Mouse::getPosition(hard).x >=1731 && sf::Mouse::getPosition(hard).x <=1901 && sf::Mouse::getPosition(hard).y >=14 && sf::Mouse::getPosition(hard).y <=89)
+        {
+            sf :: Texture HighlightedResetButton ("../../src/resetButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedResetButton(HighlightedResetButton);
+            highlightedResetButton.setPosition({1730.f, 14.f});
+            hard.draw(highlightedResetButton);
+        }
+        else
+        {
+            sf :: Texture ResetButton ("../../src/resetButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite resetButton(ResetButton);
+            resetButton.setPosition({1730.f, 14.f});
+            hard.draw(resetButton);
         }
         hard.display();
     }

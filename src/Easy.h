@@ -1,10 +1,12 @@
 //
 // Created by willw on 04/07/2025.
 //
+
 #ifndef EASY_H
 #define EASY_H
+void difficulty();
 //floodfill algorithm
-void easy()
+inline void Easy()
 {
     int countMinesEasy(bool grid[10][10], int rows, int columns);
     int rows;
@@ -39,24 +41,26 @@ void easy()
             {
                 sf::Vector2i localPosition = sf::Mouse::getPosition(easy);
                 std::cout << localPosition.x << " " << localPosition.y << std::endl;
+                if (sf::Mouse::getPosition(easy).x >=17 && sf::Mouse::getPosition(easy).x <=189 && sf::Mouse::getPosition(easy).y >=14 && sf::Mouse::getPosition(easy).y <=89)
+                {
+                    easy.close();
+                    difficulty();
+                }
+                else if (sf::Mouse::getPosition(easy).x >=1731 && sf::Mouse::getPosition(easy).x <=1901 && sf::Mouse::getPosition(easy).y >=14 && sf::Mouse::getPosition(easy).y <=89)
+                {
+                    easy.close();
+                    Easy();
+                }
             }
         }
         easy.clear(sf :: Color :: Black);
         sf :: Texture texture("../../src/Minesweeper_easy.png", false, sf :: IntRect({0,0},{1920,1080}));
         sf::Sprite sprite(texture);
         easy.draw(sprite);
-        sf :: Texture Square("../../src/emptySquareEasy.png", false, sf :: IntRect({0,0},{50,50}));
-        Square.setRepeated(true);
-        sf::Sprite square(Square);
-        square.setTextureRect(sf::IntRect({0,0},{500,500}));
-        square.setPosition({712.f, 289.f});
-        easy.draw(square);
-
         for (rows=0; rows<10; rows++)
         {
             for (columns=0; columns<10; columns++)
             {
-
                 if (grid[rows][columns]==false)
                 {
                     int mineCount=countMinesEasy(grid,rows,columns);
@@ -145,6 +149,40 @@ void easy()
                 }
             }
         }
+        sf :: Texture Square("../../src/emptySquareEasy.png", false, sf :: IntRect({0,0},{50,50}));
+        Square.setRepeated(true);
+        sf::Sprite square(Square);
+        square.setTextureRect(sf::IntRect({0,0},{500,500}));
+        square.setPosition({712.f, 289.f});
+        easy.draw(square);
+        if (sf::Mouse::getPosition(easy).x >=17 && sf::Mouse::getPosition(easy).x <=189 && sf::Mouse::getPosition(easy).y >=14 && sf::Mouse::getPosition(easy).y <=89)
+        {
+            sf :: Texture HighlightedBackButton("../../src/backButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedBackButton(HighlightedBackButton);
+            highlightedBackButton.setPosition({17.f, 14.f});
+            easy.draw(highlightedBackButton);
+        }
+        else
+        {
+            sf :: Texture BackButton("../../src/backButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite backButton(BackButton);
+            backButton.setPosition({17.f, 14.f});
+            easy.draw(backButton);
+        }
+        if (sf::Mouse::getPosition(easy).x >=1731 && sf::Mouse::getPosition(easy).x <=1901 && sf::Mouse::getPosition(easy).y >=14 && sf::Mouse::getPosition(easy).y <=89)
+        {
+            sf :: Texture HighlightedResetButton ("../../src/resetButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedResetButton(HighlightedResetButton);
+            highlightedResetButton.setPosition({1730.f, 14.f});
+            easy.draw(highlightedResetButton);
+        }
+        else
+        {
+            sf :: Texture ResetButton ("../../src/resetButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite resetButton(ResetButton);
+            resetButton.setPosition({1730.f, 14.f});
+            easy.draw(resetButton);
+        }
         easy.display();
     }
 }
@@ -158,7 +196,9 @@ int countMinesEasy(bool grid[10][10], int rows, int columns)
             for (int vertical=-1;vertical<=1;vertical++)
             {
                 if (horizontal==0 && vertical==0)
+                {
                     continue;
+                }
                 else
                 {
                     checkHorizontal=rows+horizontal;

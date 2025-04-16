@@ -3,8 +3,9 @@
 //
 #ifndef DEMOLITION_H
 #define DEMOLITION_H
+void title();
 //floodfill algorithm
-void demolition()
+inline void Demolition()
 {
     int countMinesDemolition(bool grid[20][20], int rows, int columns);
     int rows;
@@ -36,17 +37,23 @@ void demolition()
                 if (keyPressed->scancode == sf :: Keyboard :: Scancode :: Escape)
                     demolition.close();
             }
+            else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) )
+            {
+                sf::Vector2i localPosition = sf::Mouse::getPosition(demolition);
+                std::cout << localPosition.x << " " << localPosition.y << std::endl;
+                if (sf::Mouse::getPosition(demolition).x >=17 && sf::Mouse::getPosition(demolition).x <=189 && sf::Mouse::getPosition(demolition).y >=14 && sf::Mouse::getPosition(demolition).y <=89)
+                {
+                    demolition.close();
+                    title();
+                }
+                else if (sf::Mouse::getPosition(demolition).x >=1731 && sf::Mouse::getPosition(demolition).x <=1901 && sf::Mouse::getPosition(demolition).y >=14 && sf::Mouse::getPosition(demolition).y <=89)
+                {
+                    demolition.close();
+                    Demolition();
+                }
+            }
         }
         demolition.clear(sf :: Color :: Black);
-        sf :: Texture texture("../../src/Minesweeper_demolition.png", false, sf :: IntRect({0,0},{1920,1080}));
-        sf::Sprite sprite(texture);
-        demolition.draw(sprite);
-        sf :: Texture Square("../../src/emptySquareMedium.png", false, sf :: IntRect({0,0},{35,35}));
-        Square.setRepeated(true);
-        sf::Sprite square(Square);
-        square.setTextureRect(sf::IntRect({0,0},{700,700}));
-        square.setPosition({610, 190});
-        demolition.draw(square);
         for (rows=0; rows<20; rows++)
         {
             for (columns=0; columns<20; columns++)
@@ -138,6 +145,43 @@ void demolition()
                     demolition.draw(mine);
                 }
             }
+        }
+        sf :: Texture texture("../../src/Minesweeper_demolition.png", false, sf :: IntRect({0,0},{1920,1080}));
+        sf::Sprite sprite(texture);
+        demolition.draw(sprite);
+        sf :: Texture Square("../../src/emptySquareMedium.png", false, sf :: IntRect({0,0},{35,35}));
+        Square.setRepeated(true);
+        sf::Sprite square(Square);
+        square.setTextureRect(sf::IntRect({0,0},{700,700}));
+        square.setPosition({610, 190});
+        demolition.draw(square);
+        if (sf::Mouse::getPosition(demolition).x >=17 && sf::Mouse::getPosition(demolition).x <=189 && sf::Mouse::getPosition(demolition).y >=14 && sf::Mouse::getPosition(demolition).y <=89)
+        {
+            sf :: Texture HighlightedBackButton("../../src/backButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedBackButton(HighlightedBackButton);
+            highlightedBackButton.setPosition({17.f, 14.f});
+            demolition.draw(highlightedBackButton);
+        }
+        else
+        {
+            sf :: Texture BackButton("../../src/backButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite backButton(BackButton);
+            backButton.setPosition({17.f, 14.f});
+            demolition.draw(backButton);
+        }
+        if (sf::Mouse::getPosition(demolition).x >=1731 && sf::Mouse::getPosition(demolition).x <=1901 && sf::Mouse::getPosition(demolition).y >=14 && sf::Mouse::getPosition(demolition).y <=89)
+        {
+            sf :: Texture HighlightedResetButton ("../../src/resetButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedResetButton(HighlightedResetButton);
+            highlightedResetButton.setPosition({1730.f, 14.f});
+            demolition.draw(highlightedResetButton);
+        }
+        else
+        {
+            sf :: Texture ResetButton ("../../src/resetButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite resetButton(ResetButton);
+            resetButton.setPosition({1730.f, 14.f});
+            demolition.draw(resetButton);
         }
         demolition.display();
     }

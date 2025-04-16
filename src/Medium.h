@@ -3,9 +3,9 @@
 //
 #ifndef MEDIUM_H
 #define MEDIUM_H
-#include "Easy.h"
+void difficulty();
 //floodfill algorithm
-void medium()
+inline void Medium()
 {
     int countMinesMedium(bool grid[20][20], int rows, int columns);
     int rows;
@@ -40,18 +40,22 @@ void medium()
             {
                 sf::Vector2i localPosition = sf::Mouse::getPosition(medium);
                 std::cout << localPosition.x << " " << localPosition.y << std::endl;
+                if (sf::Mouse::getPosition(medium).x >=17 && sf::Mouse::getPosition(medium).x <=189 && sf::Mouse::getPosition(medium).y >=14 && sf::Mouse::getPosition(medium).y <=89)
+                {
+                    medium.close();
+                    difficulty();
+                }
+                else if (sf::Mouse::getPosition(medium).x >=1731 && sf::Mouse::getPosition(medium).x <=1901 && sf::Mouse::getPosition(medium).y >=14 && sf::Mouse::getPosition(medium).y <=89)
+                {
+                    medium.close();
+                    Medium();
+                }
             }
         }
         medium.clear(sf :: Color :: Black);
         sf :: Texture texture("../../src/Minesweeper_medium.png", false, sf :: IntRect({0,0},{1920,1080}));
         sf::Sprite sprite(texture);
         medium.draw(sprite);
-        sf :: Texture Square("../../src/emptySquareMedium.png", false, sf :: IntRect({0,0},{35,35}));
-        Square.setRepeated(true);
-        sf::Sprite square(Square);
-        square.setTextureRect(sf::IntRect({0,0},{700,700}));
-        square.setPosition({610.f, 190.f});
-        medium.draw(square);
         for (rows=0; rows<20; rows++)
         {
             for (columns=0; columns<20; columns++)
@@ -144,6 +148,40 @@ void medium()
                     medium.draw(mine);
                 }
             }
+        }
+        sf :: Texture Square("../../src/emptySquareMedium.png", false, sf :: IntRect({0,0},{35,35}));
+        Square.setRepeated(true);
+        sf::Sprite square(Square);
+        square.setTextureRect(sf::IntRect({0,0},{700,700}));
+        square.setPosition({610.f, 190.f});
+        medium.draw(square);
+        if (sf::Mouse::getPosition(medium).x >=17 && sf::Mouse::getPosition(medium).x <=189 && sf::Mouse::getPosition(medium).y >=14 && sf::Mouse::getPosition(medium).y <=89)
+        {
+            sf :: Texture HighlightedBackButton("../../src/backButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedBackButton(HighlightedBackButton);
+            highlightedBackButton.setPosition({17.f, 14.f});
+            medium.draw(highlightedBackButton);
+        }
+        else
+        {
+            sf :: Texture BackButton("../../src/backButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite backButton(BackButton);
+            backButton.setPosition({17.f, 14.f});
+            medium.draw(backButton);
+        }
+        if (sf::Mouse::getPosition(medium).x >=1731 && sf::Mouse::getPosition(medium).x <=1901 && sf::Mouse::getPosition(medium).y >=14 && sf::Mouse::getPosition(medium).y <=89)
+        {
+            sf :: Texture HighlightedResetButton ("../../src/resetButtonHighlighted.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite highlightedResetButton(HighlightedResetButton);
+            highlightedResetButton.setPosition({1730.f, 14.f});
+            medium.draw(highlightedResetButton);
+        }
+        else
+        {
+            sf :: Texture ResetButton ("../../src/resetButton.png", false, sf :: IntRect({0,0},{173,77}));
+            sf::Sprite resetButton(ResetButton);
+            resetButton.setPosition({1730.f, 14.f});
+            medium.draw(resetButton);
         }
         medium.display();
     }
